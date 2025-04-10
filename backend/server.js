@@ -13,19 +13,19 @@ let connection = null;
 
 app.post('/connect', async (req, res) => {
   try {
-    const { host, user, password, database } = req.body;
+    // const { host, user, password, database } = req.body;
     
     // Close existing connection if any
     if (connection) {
       await connection.end();
     }
 
-    // Create new connection
-    connection = await mysql.createConnection({
-      host,
-      user,
-      password,
-      database
+    // Create a new connection
+    const db = mysql.createConnection({
+      host: 'sql3.freesqldatabase.com',
+      user: 'sql3772356',
+      password: 'dCH5ySIgYS', // replace with actual password once it's available
+      database: 'sql3772356'
     });
 
     await connection.connect();
