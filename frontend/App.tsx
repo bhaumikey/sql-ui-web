@@ -3,7 +3,7 @@ import { Menu, X, Database, RefreshCw, Power, Play, AlertCircle } from 'lucide-r
 import { Toaster, toast } from 'react-hot-toast';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://sql-ui-web-76co.vercel.app';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -14,11 +14,10 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('tables');
   const [connectionSettings, setConnectionSettings] = useState({
-    host: 'localhost',
-    user: 'root',
-    password: '12345678',
-    database: 'dbms',
-    port: '3306'
+    host: 'sql3.freesqldatabase.com',
+    user: 'sql3772356',
+    password: 'dCH5ySIgYS', // replace with actual password once it's available
+    database: 'sql3772356'
   });
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
@@ -74,7 +73,7 @@ function App() {
     try {
       setLoading(true);
       const queries = query.split(';').filter(q => q.trim());
-      
+
       if (queries.length === 0) {
         toast.error('No valid queries found');
         return;
@@ -205,7 +204,7 @@ function App() {
   return (
     <div className="min-h-screen bg-[#121212] text-gray-100 font-sans flex flex-col">
       <Toaster position="top-right" />
-      
+
       {/* Header */}
       <header className="bg-[#1a1a1a] p-4 flex justify-between items-center shadow-lg">
         <h1 className="text-2xl font-semibold flex items-center gap-2">
@@ -238,11 +237,10 @@ function App() {
                 <button
                   onClick={executeQuery}
                   disabled={!isConnected || loading}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 ${
-                    isConnected && !loading
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                      : 'bg-gray-600 cursor-not-allowed text-gray-400'
-                  }`}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 ${isConnected && !loading
+                    ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                    : 'bg-gray-600 cursor-not-allowed text-gray-400'
+                    }`}
                 >
                   <Play className="w-4 h-4" />
                   Execute Query
@@ -256,25 +254,22 @@ function App() {
             <div className="flex space-x-4 mb-4">
               <button
                 onClick={() => setActiveTab('tables')}
-                className={`px-4 py-2 rounded-lg transition-colors flex-1 ${
-                  activeTab === 'tables' ? 'bg-blue-600 text-white' : 'bg-[#2a2a2a] text-gray-300 hover:bg-[#3a3a3a]'
-                }`}
+                className={`px-4 py-2 rounded-lg transition-colors flex-1 ${activeTab === 'tables' ? 'bg-blue-600 text-white' : 'bg-[#2a2a2a] text-gray-300 hover:bg-[#3a3a3a]'
+                  }`}
               >
                 Tables
               </button>
               <button
                 onClick={() => setActiveTab('schemas')}
-                className={`px-4 py-2 rounded-lg transition-colors flex-1 ${
-                  activeTab === 'schemas' ? 'bg-blue-600 text-white' : 'bg-[#2a2a2a] text-gray-300 hover:bg-[#3a3a3a]'
-                }`}
+                className={`px-4 py-2 rounded-lg transition-colors flex-1 ${activeTab === 'schemas' ? 'bg-blue-600 text-white' : 'bg-[#2a2a2a] text-gray-300 hover:bg-[#3a3a3a]'
+                  }`}
               >
                 Schemas
               </button>
               <button
                 onClick={() => setActiveTab('results')}
-                className={`px-4 py-2 rounded-lg transition-colors flex-1 ${
-                  activeTab === 'results' ? 'bg-blue-600 text-white' : 'bg-[#2a2a2a] text-gray-300 hover:bg-[#3a3a3a]'
-                }`}
+                className={`px-4 py-2 rounded-lg transition-colors flex-1 ${activeTab === 'results' ? 'bg-blue-600 text-white' : 'bg-[#2a2a2a] text-gray-300 hover:bg-[#3a3a3a]'
+                  }`}
               >
                 Results
               </button>
@@ -288,13 +283,12 @@ function App() {
 
         {/* Sidebar */}
         <aside
-          className={`fixed inset-y-0 right-0 w-80 bg-[#1a1a1a] p-6 transform transition-transform duration-300 ease-in-out ${
-            isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
-          } shadow-2xl overflow-y-auto`}
+          className={`fixed inset-y-0 right-0 w-80 bg-[#1a1a1a] p-6 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+            } shadow-2xl overflow-y-auto`}
           style={{ top: '4rem' }}
         >
           <h2 className="text-xl font-semibold mb-6">Database Connection</h2>
-          
+
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1">Host</label>
@@ -307,7 +301,7 @@ function App() {
                 disabled={isConnected}
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium mb-1">Port</label>
               <input
@@ -319,7 +313,7 @@ function App() {
                 disabled={isConnected}
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium mb-1">Database</label>
               <input
@@ -331,7 +325,7 @@ function App() {
                 disabled={isConnected}
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium mb-1">Username</label>
               <input
@@ -343,7 +337,7 @@ function App() {
                 disabled={isConnected}
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium mb-1">Password</label>
               <input
@@ -375,7 +369,7 @@ function App() {
                     <RefreshCw className="w-4 h-4" />
                     Refresh Tables
                   </button>
-                  
+
                   <button
                     onClick={handleDisconnect}
                     className="w-full py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
