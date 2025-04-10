@@ -79,6 +79,11 @@ app.get('/tables', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.send(`Bhaumikey suuueee!`);
+});
+
+
 app.post('/execute', async (req, res) => {
   try {
     if (!connection) {
